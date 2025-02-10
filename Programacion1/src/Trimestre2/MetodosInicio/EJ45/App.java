@@ -10,19 +10,25 @@ public class App {
 		Scanner scanner = new Scanner(System.in);
 		Boolean v = true;
 		String fecha = "";
-		while(v) {
+		// 1
+		while (v) {
 			System.out.println("Escribe una fecha");
 			fecha = scanner.nextLine();
-			 v = Autentificador.comprobarFecha(fecha);	
+			v = Autentificador.comprobarFecha(fecha);
 		}
-		 Autentificador.bisiesto(fecha);
-		 
-		 System.out.println(Autentificador.diaSemana(fecha));
-		 
-		 System.out.println(Autentificador.años(fecha));
-		 
-		 System.out.println(Autentificador.añosVida(fecha));
-		 
+		// 2
+		Autentificador.bisiesto(fecha);
+		// 3
+		System.out.println(Autentificador.diaSemana(fecha));
+		// 4
+		System.out.println(Autentificador.años(fecha));
+		// 5
+		System.out.println(Autentificador.añosVida(fecha));
+		// 6
+
+		Autentificador parteSiete =  new Autentificador();
+		System.out.println(parteSiete.toString());
+		
 		scanner.close();
 	}
 }
