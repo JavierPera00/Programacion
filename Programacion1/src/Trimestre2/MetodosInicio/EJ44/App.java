@@ -1,21 +1,17 @@
 package Trimestre2.MetodosInicio.EJ44;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import Trimestre2.MetodosInicio.EJ43.Actores;
+
 
 public class App {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//1
-		List<Equipo> lista1 = new ArrayList<>();
 		Asesino asesino1 = new Asesino ("Juan", "b99");
 		Asesino asesino2 = new Asesino ("Jony", "b98");
 		Asesino asesino3 = new Asesino ("Javier", "b97");
 		Equipo equipo1 = new Equipo();
-		Equipo equipo2 = new Equipo();
 		equipo1.agregarLista(asesino1);
 		equipo1.agregarLista(asesino2);
 		equipo1.agregarLista(asesino3);

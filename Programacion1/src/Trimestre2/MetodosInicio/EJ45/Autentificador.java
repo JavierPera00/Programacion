@@ -17,8 +17,8 @@ public class Autentificador {
 		this.fecha = fecha;
 	}
 
-	public Autentificador(LocalDate fecha) {
-		this.fecha = fecha;
+	public Autentificador() {
+		
 	}
 
 	// 1
@@ -72,4 +72,10 @@ public class Autentificador {
 		return vida;
 	}
 
+	@Override
+	public  String toString() {
+		return "Autentificador [fecha=" + fecha + "]";
+	}
+
+	
 }

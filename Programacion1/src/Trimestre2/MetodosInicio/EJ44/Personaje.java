@@ -35,6 +35,7 @@ public abstract class Personaje {
 	
 	public abstract Integer segundoDaño();
 	
+	
 	public Integer quitarVida(Integer daño) {
 		return this.puntosVida -= daño;
 	}
