@@ -12,8 +12,6 @@ public class Carrito {
 	private Cliente cliente;
 	private List<Articulo> articulos;
 	 
-	
-	
 	public LocalDate getFechaCreacion() {
 		return fechaCreacion;
 	}
