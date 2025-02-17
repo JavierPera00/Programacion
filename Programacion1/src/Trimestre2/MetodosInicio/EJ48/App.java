@@ -1,4 +1,4 @@
-package Trimestre2.MetodosInicio.EJ47;
+package Trimestre2.MetodosInicio.EJ48;
 
 public class App {
 
@@ -31,7 +31,13 @@ public class App {
 		carrito.vaciarCesta();
 		System.out.println(carrito);
 		//10
-		System.out.println(carrito.getPrecioMedio()  + " €");;
+		System.out.println(carrito.getPrecioMedio()  + " €");
+		
+		//Prueba
+		System.out.println("Prueba: ");
+		carrito.addArticulo(articulo2);
+		carrito.addArticulo(articulo2);
+		System.out.println(carrito);
 
 	}
 }

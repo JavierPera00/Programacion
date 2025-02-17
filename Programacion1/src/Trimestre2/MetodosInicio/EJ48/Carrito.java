@@ -1,16 +1,19 @@
-package Trimestre2.MetodosInicio.EJ47;
+package Trimestre2.MetodosInicio.EJ48;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Carrito {
 
 	private LocalDate fechaCreacion;
 	private LocalDate fechaActualizacion;
 	private Cliente cliente;
-	private List<Articulo> articulos;
+	private Set<Articulo> articulos;
 	 
 	public LocalDate getFechaCreacion() {
 		return fechaCreacion;
@@ -24,7 +27,7 @@ public class Carrito {
 		return cliente;
 	}
 
-	public List<Articulo> getArticulos() {
+	public Set<Articulo> getArticulos() {
 		return articulos;
 	}
 
@@ -32,7 +35,7 @@ public class Carrito {
 		this.cliente = cliente;
 		fechaCreacion = LocalDate.now();
 		fechaActualizacion = LocalDate.now();
-		this.articulos = new ArrayList<>();
+		this.articulos = new LinkedHashSet<>();
 	}
 
 	public Integer getCantidad() {
@@ -47,18 +50,19 @@ public class Carrito {
 		if(this.articulos.size() < 0) {
 			return 0;
 		}
-		for (int i = 0; i < articulos.size(); i++) {
-			precio += articulos.get(i).getPrecio();
+		for (Articulo articulo : articulos) {
+			precio += articulo.getPrecio();
 		}
 		return precio;
 	}
+	
 	public Integer getPrecioMedio() {
 		Integer precio = 0;
 		if(this.articulos.size() < 0 || this.articulos.isEmpty() ) {
 			return 0;
 		}
-		for (int i = 0; i < articulos.size(); i++) {
-			precio += articulos.get(i).getPrecio();
+		for (Articulo articulo : articulos) {
+			precio += articulo.getPrecio();
 		}
 		Integer precioMedio = precio/articulos.size();
 		return precioMedio;

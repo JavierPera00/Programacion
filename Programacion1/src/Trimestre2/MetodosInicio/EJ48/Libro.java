@@ -1,4 +1,4 @@
-package Trimestre2.MetodosInicio.EJ47;
+package Trimestre2.MetodosInicio.EJ48;
 
 public class Libro extends Articulo{
 

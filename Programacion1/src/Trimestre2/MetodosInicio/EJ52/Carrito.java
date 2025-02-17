@@ -1,5 +1,7 @@
-package Trimestre2.MetodosInicio.EJ47;
+package Trimestre2.MetodosInicio.EJ52;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -42,25 +44,25 @@ public class Carrito {
 		return articulos.size();
 	}
 
-	public Integer getTotal() {
-		Integer precio = 0;
+	public BigDecimal getTotal() {
+		BigDecimal precio = BigDecimal.ZERO;
 		if(this.articulos.size() < 0) {
-			return 0;
+			return BigDecimal.ZERO;
 		}
 		for (int i = 0; i < articulos.size(); i++) {
-			precio += articulos.get(i).getPrecio();
+			precio.add(articulos.get(i).getPrecio());
 		}
 		return precio;
 	}
-	public Integer getPrecioMedio() {
-		Integer precio = 0;
+	public BigDecimal getPrecioMedio() {
+		BigDecimal precio = BigDecimal.ZERO;
 		if(this.articulos.size() < 0 || this.articulos.isEmpty() ) {
-			return 0;
+			return BigDecimal.ZERO;
 		}
 		for (int i = 0; i < articulos.size(); i++) {
-			precio += articulos.get(i).getPrecio();
+			precio.add(articulos.get(i).getPrecio());
 		}
-		Integer precioMedio = precio/articulos.size();
+		BigDecimal precioMedio = precio.divide(BigDecimal.valueOf(articulos.size()),RoundingMode.HALF_UP);
 		return precioMedio;
 	}
 

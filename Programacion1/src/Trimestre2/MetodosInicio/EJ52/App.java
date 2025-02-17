@@ -1,4 +1,6 @@
-package Trimestre2.MetodosInicio.EJ47;
+package Trimestre2.MetodosInicio.EJ52;
+
+import java.math.BigDecimal;
 
 public class App {
 
@@ -12,13 +14,15 @@ public class App {
 		Carrito carrito = new Carrito(cliente);
 		System.out.println(carrito);
 		// 3
-		Ropa articulo1 = new Ropa("Poncho", 20, "XL", "azul");
+		BigDecimal precio1 = new BigDecimal(20);
+		Ropa articulo1 = new Ropa("Poncho", precio1, "XL", "azul");
 		// 4
 		carrito.addArticulo(articulo1);
 		carrito.addArticulo(articulo1);
 		System.out.println(carrito);
 		// 5
-		Libro articulo2 = new Libro("Así habló Zaratustra", 15, "Nietzsche");
+		BigDecimal precio2 = new BigDecimal(15);
+		Libro articulo2 = new Libro("Así habló Zaratustra", precio2, "Nietzsche");
 		// 6
 		carrito.addArticulo(articulo2);
 		System.out.println(carrito);
