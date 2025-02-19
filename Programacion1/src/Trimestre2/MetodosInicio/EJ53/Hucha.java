@@ -5,8 +5,7 @@ import java.text.DecimalFormat;
 
 public class Hucha {
 
-	private BigDecimal importe;
-	
+	private BigDecimal importe = BigDecimal.ZERO;
 
 	public BigDecimal getImporte() {
 		return importe;
@@ -15,46 +14,51 @@ public class Hucha {
 	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
+
 	public Hucha() {
-		this.importe =  BigDecimal.ZERO;
+
 	}
-	
+
+	public Hucha(BigDecimal importe) {
+		this.importe = importe;
+	}
+
 	public BigDecimal meterDinero(BigDecimal dinero) {
-		this.importe.add(dinero);
+		this.importe = this.importe.add(dinero);
 		return importe;
 	}
-	
-	public BigDecimal sacarDinero (BigDecimal dinero) {
-		if(this.importe == null || this.importe == BigDecimal.ZERO) {
-			return BigDecimal.ZERO;
-		}if(importe.max(dinero) == dinero) {
-			return importe;
-		}
-		this.importe.subtract(dinero);
-		return importe;
+
+	public BigDecimal sacarDinero(BigDecimal dinero) {
+	    if (dinero == null || dinero.compareTo(BigDecimal.ZERO) <= 0) {//  retirar negativo
+	        return BigDecimal.ZERO; 
+	    }
+	    if (dinero.compareTo(this.importe) >= 0) {
+	        BigDecimal retirado = this.importe;
+	        this.importe = BigDecimal.ZERO;
+	        return retirado;
+	    }
+	    this.importe = this.importe.subtract(dinero);
+	    return dinero; 
 	}
-	
+
 	public BigDecimal contarDinero() {
-		if(importe == null) {
+		if (importe == null) {
 			return BigDecimal.ZERO;
 		}
 		return importe;
 	}
-	
-	public BigDecimal romperHucha () {
+
+	public BigDecimal romperHucha() {
 		BigDecimal retirado = importe;
-		importe.subtract(importe);
+		this.importe = this.importe.subtract(importe);
 		return retirado;
 	}
 
 	@Override
 	public String toString() {
 		DecimalFormat formato = new DecimalFormat("#,###.#€");
-		
+
 		return "Hucha [importe = " + formato.format(importe) + "]";
 	}
-	
-	
-	
-	
+
 }
