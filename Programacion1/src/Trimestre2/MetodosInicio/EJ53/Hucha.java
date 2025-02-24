@@ -32,7 +32,7 @@ public class Hucha {
 	    if (dinero == null || dinero.compareTo(BigDecimal.ZERO) <= 0) {//  retirar negativo
 	        return BigDecimal.ZERO; 
 	    }
-	    if (dinero.compareTo(this.importe) >= 0) {
+	    if (dinero.compareTo(this.importe) > 0) {
 	        BigDecimal retirado = this.importe;
 	        this.importe = BigDecimal.ZERO;
 	        return retirado;
@@ -56,9 +56,8 @@ public class Hucha {
 
 	@Override
 	public String toString() {
-		DecimalFormat formato = new DecimalFormat("#,###.#€");
-
-		return "Hucha [importe = " + formato.format(importe) + "]";
+		DecimalFormat formato = new DecimalFormat("#,###0.00#€");
+		return "Hucha [ importe = " + formato.format(importe) + " ]";
 	}
 
 }

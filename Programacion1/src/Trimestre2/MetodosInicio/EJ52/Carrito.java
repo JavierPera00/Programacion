@@ -50,7 +50,7 @@ public class Carrito {
 			return BigDecimal.ZERO;
 		}
 		for (int i = 0; i < articulos.size(); i++) {
-			precio.add(articulos.get(i).getPrecio());
+			precio = precio.add(articulos.get(i).getPrecio());
 		}
 		return precio;
 	}
