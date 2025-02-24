@@ -56,7 +56,7 @@ public class Hucha {
 
 	@Override
 	public String toString() {
-		DecimalFormat formato = new DecimalFormat("#,###0.00#€");
+		DecimalFormat formato = new DecimalFormat("#,##0.00#€");
 		return "Hucha [ importe = " + formato.format(importe) + " ]";
 	}
 
