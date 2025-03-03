@@ -33,8 +33,6 @@ public class Libreria {
 		this.listaLibro = new ArrayList<>(); //Se inicializa el arrayList
 		this.telefono = telefono;
 	}
-
-	
 	
 	public String obtenerLibroMasAntiguo(List<Libros> lista){
 		if (lista.isEmpty()) {

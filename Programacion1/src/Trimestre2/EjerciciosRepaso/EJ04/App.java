@@ -22,8 +22,7 @@ public class App {
 		listaLibro.add(normal1);
 		listaLibro.add(digital);
 		listaLibro.add(digital1);
-		/*Llama a los métodos creados en la librería e imprime los resultados para comprobar
-		que funcionan correctamenteobtenerLibroMasAntiguo*/
+		/*Llama a los métodos*/
 		System.out.println("El libro más antiguo es : " + libreria1.obtenerLibroMasAntiguo(listaLibro));
 		libreria1.obtenerNumPaginasMedio(listaLibro);
 		System.out.println("El Peso total de libros es de : " + libreria1.obtenerPesoTotalLibros(listaLibro));		

@@ -119,28 +119,23 @@ public class Smartphone {
 		Float iva = 0.21f;
 		Float conIva = precio * iva;
 		return precio + conIva;
+		
 	}
 
 	public Boolean isAltaGama(Float precio) {
-		Boolean altaBaja;
 		// Alta
 		if (this.precio > precio) {
-			altaBaja = true;
-		} else {
-			altaBaja = false;
-		}
+			return true;
+		} 
 		// Baja gama
-		return altaBaja;
+		return false;
 	}
 
 	public Boolean isDatosCompletos() {
-		Boolean confirmar;
 		if (!(this.imei.isBlank() || this.imei.isEmpty() || this.precio == null)) {
-			confirmar = true;
-		} else {
-			confirmar = false;
+			return true;
 		}
-		return confirmar;
+		return false;
 	}
 
 	public Boolean isGratis() {
