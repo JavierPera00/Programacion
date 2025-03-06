@@ -50,6 +50,7 @@ public class publicacion {
 		this.fecha = fecha;
 	}
 
+
 	@Override
 	public String toString() {
 		return "publicacion [codigo = " + codigo + ", autor = " + autor + ", titulo = " + titulo + ", fecha = " + fecha + "]";
