@@ -35,10 +35,11 @@ public class Geografia {
 	}
 
 	public String obtenerCapital(String pais) {
-		if (this.paises.containsKey(pais.toUpperCase())) {
-			return "";
+		pais = pais.toUpperCase();
+		if (this.paises.containsKey(pais)) {
+			return this.paises.get(pais);
 		}
-		return this.paises.get(pais);
+		return "";
 	}
 
 	public void imprimirPaises() {
