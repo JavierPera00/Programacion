@@ -2,6 +2,7 @@ package Trimestre2.ExProgramacion2023_2ºInten;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,6 +15,7 @@ public class Agenda {
 
 	public Agenda(String medico) {
 		this.medico = medico;
+		this.lista = new ArrayList<>();
 	}
 
 	public String getMedico() {
@@ -21,20 +23,11 @@ public class Agenda {
 	}
 
 	// Metodos
-
 	public void addCita(Cita cita) {
-		for (int i = 0; i < lista.size(); i++) {
-			if (!(this.lista.get(i).getFecha().equals(cita.getFecha())
-					&& this.lista.get(i).getHora().equals(cita.getHora()))) {
-				this.lista.add(cita);
-			}
-		}
-	}
-	/*public void addCita(Cita cita) {
         if (!lista.contains(cita)) {
             lista.add(cita);
         }
-    }*/
+    }
 
 	public List<Cita> getCitasDias(LocalDate fecha) {
 		List<Cita> citasHoy = new ArrayList<>();
@@ -71,7 +64,7 @@ public class Agenda {
 	public void borrarCitasFacturadas(String paciente) {
 		Iterator<Cita> listaa = this.lista.iterator();
 		while (listaa.hasNext()) {
-			if (listaa.next().getFacturada() == true) {
+			if (listaa.next().getFacturada() == true && listaa.next().getNombrePaciente().equalsIgnoreCase(paciente)) {
 				listaa.remove();
 			}
 		}
@@ -87,9 +80,4 @@ public class Agenda {
 			}
 		}
 	}
-	
-	
-	
-	
-
 }

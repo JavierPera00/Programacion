@@ -23,12 +23,12 @@ public class Cita {
 
 	public Cita(LocalDate fecha, Integer hora, String nombrePaciente, Boolean seguroMedico) {
 		this.facturada = false;
-		if (seguroMedico == true) {
-			this.fecha = fecha;
-			this.hora = hora;
-			this.nombrePaciente = nombrePaciente;
+		if (seguroMedico == null) {
+			this.seguroMedico = false;
+		} else {
 			this.seguroMedico = seguroMedico;
 		}
+		this.facturada = false;
 	}
 
 	// Get y Set
@@ -98,40 +98,34 @@ public class Cita {
 	}
 
 	// Métodos
-	public BigDecimal getImporteFactura () {
-		if(this.revision.getNumeroRevision() != 0) {
+	public BigDecimal getImporteFactura() {
+		if (this.revision != null && revision.getNumeroRevision() != 0) {
 			return new BigDecimal(50).add(new BigDecimal(10));
 		}
-		if(this.seguroMedico = true) {
+		if (this.seguroMedico == true) {
 			return new BigDecimal(100);
 		}
-		return new BigDecimal (150);
+		return new BigDecimal(150);
 	}
-	
-	// To String 
+
+	// To String
 	@Override
 	public String toString() {
 		String seguro = "";
-		if(this.seguroMedico == true) {
+		if (this.seguroMedico == true) {
 			seguro = "CON SEGURO";
-		}else{
+		} else {
 			seguro = "SIN SEGURO";
 		}
-		return  this.nombrePaciente + " - " + this.fecha + " - " + this.hora + " horas - " + seguro;
+		return this.nombrePaciente + " - " + this.fecha + " - " + this.hora + " horas - " + seguro;
 	}
-	
+
 	public Integer getDiasHastaCita() {
 		LocalDate fechaHoy = LocalDate.now();
 		Period periodo = this.fecha.until(fechaHoy);
-		if(this.fecha.isBefore(fechaHoy)) {
+		if (this.fecha.isBefore(fechaHoy)) {
 			return periodo.getDays();
-		}	
+		}
 		return -1;
 	}
-	
-	
-	
-	
-	
-	
 }
