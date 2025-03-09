@@ -81,7 +81,7 @@ public class Avion {
 	public BigDecimal getPrecioMedioVenta() {
 		BigDecimal precio = BigDecimal.ZERO;
 		for (Asiento asiento : listaAsiento) {
-			precio = precio.add(asiento.getPrecio());
+			precio = precio.add(asiento.getPrecioVenta());
 		}
 		precio = precio.divide(new BigDecimal(listaAsiento.size()));
 		return precio.setScale(2, RoundingMode.HALF_UP);
@@ -91,7 +91,7 @@ public class Avion {
 		Asiento asientoBarato = null;
 		for (Asiento asiento : listaAsiento) {
 			if (asiento.getOcupado() == false) {
-				if (asientoBarato == null || asiento.getPrecio().compareTo(asientoBarato.getPrecio()) < 0) {
+				if (asientoBarato == null || asiento.getPrecioVenta().compareTo(asientoBarato.getPrecioVenta()) < 0) {
 					asientoBarato = asiento;
 				}
 			}
@@ -102,7 +102,7 @@ public class Avion {
 	public void eliminarAsientoFila(Integer fila) {
 		Iterator<Asiento> iterador = listaAsiento.iterator();
 		while(iterador.hasNext()) {
-			if(iterador.next().getFila() == fila){
+			if(iterador.next().getFila().equals(fila)){
 				iterador.remove();
 			}
 		}		

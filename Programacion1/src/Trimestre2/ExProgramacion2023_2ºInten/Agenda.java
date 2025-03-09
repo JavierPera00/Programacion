@@ -2,7 +2,6 @@ package Trimestre2.ExProgramacion2023_2ºInten;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
