@@ -1,8 +1,9 @@
+package Trimestre2.Examen2025IgnacioB;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Plantacion {
 	

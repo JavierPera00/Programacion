@@ -1,3 +1,4 @@
+package Trimestre2.Examen2025IgnacioB;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 

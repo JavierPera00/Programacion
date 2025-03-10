@@ -1,4 +1,4 @@
-
+package Trimestre2.Examen2025IgnacioB;
 public class Pino extends Arboles{
 
 	public Pino(Integer numero_serie) {

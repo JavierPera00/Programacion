@@ -1,4 +1,4 @@
-
+package Trimestre2.Examen2025IgnacioB;
 public class Frutal extends Arboles{
 	
 	private String especie;
