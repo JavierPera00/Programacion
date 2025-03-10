@@ -1,5 +1,4 @@
-package ExBJavierPera;
-
+package Trimestre2.Examen2025JavierB.ExBJavierPera;
 import java.math.BigDecimal;
 
 public class Pino extends Arbol {

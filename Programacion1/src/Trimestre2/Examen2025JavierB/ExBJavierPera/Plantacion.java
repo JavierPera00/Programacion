@@ -1,4 +1,4 @@
-package ExBJavierPera;
+package Trimestre2.Examen2025JavierB.ExBJavierPera;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
