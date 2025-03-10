@@ -33,7 +33,6 @@ public class App {
 		DecimalFormat formato = new DecimalFormat("#,###.00€");
 		System.out.println(formato.format(agenda1.getImportePedienteFacturar()));
 		// 4
-		
 		scanner.close();
 	}
 
