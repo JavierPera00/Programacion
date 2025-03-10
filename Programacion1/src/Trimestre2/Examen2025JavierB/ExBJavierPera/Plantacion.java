@@ -16,7 +16,7 @@ public class Plantacion {
 		super();
 		this.cif = cif;
 		this.listaArbol = new ArrayList<>();
-		;
+		
 	}
 
 	public String getCif() {
@@ -76,7 +76,6 @@ public class Plantacion {
 				borrar.remove();
 			}
 		}
-		
 	}
 
 	// String	
@@ -84,7 +83,4 @@ public class Plantacion {
 	public String toString() {
 		return "PLANTACION: " + this.cif + " - " + this.listaArbol.size() + " árboles con " + this.getAlturaTotal() + " cm totales" ;
 	}
-	
-	
-
 }
