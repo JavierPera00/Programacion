@@ -21,7 +21,6 @@ public class App {
 				break;
 			}
 			if (conteoNumeros.containsKey(num)) { //Contiene
-				Integer  cantidad = conteoNumeros.get(num);
 				conteoNumeros.put(num, conteoNumeros.get(num) + 1);
 			} else {
 				conteoNumeros.put(num, 1);
