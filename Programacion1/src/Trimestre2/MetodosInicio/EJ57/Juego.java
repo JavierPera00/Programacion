@@ -30,8 +30,7 @@ public class Juego {
 			}
 			palabrasMap.get(letra).add(palabras);
 		}
-		// IMPRIMIR
-		while (true) {
+		while (true) { // IMPRIMIR
 			List<List<String>> contador = new ArrayList<>();
 			System.out.print("Dime una letra: ");
 			String letra = scanner.nextLine().trim().toUpperCase();
@@ -48,19 +47,15 @@ public class Juego {
 			}
 			if (contador.isEmpty()) {
 				System.out.println("No hay palabras que empiecen por " + letra + ".");
-			} else {
-
+			} 
+			else {
 				List<String> pal = contador.get(0);
 				System.out.println("Hay " + pal.size() + " palabra(s) que empiezan por " + letra + ":");
 				for (String palabra : pal) {
 					System.out.println("> " + palabra);
 				}
-
 			}
-			return;
-
 		}
 		scanner.close();
 	}
-
 }

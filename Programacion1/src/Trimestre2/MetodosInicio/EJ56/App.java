@@ -31,12 +31,7 @@ public class App {
 		System.out.println("Total números indicados: " + totalNumeros);
 		for (Map.Entry<Integer, Integer> entry : conteoNumeros.entrySet()) {
 			System.out.println("Número: " + entry.getKey() + " --> " + entry.getValue());
-					
 		}
 		scanner.close();
-	}
-	
+	} 
 }
-
-		
-
