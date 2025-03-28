@@ -101,8 +101,8 @@ public class Geografia {
 				System.out.print(entry.getKey() + " ");
 				v = true;
 			}
-
 		}
+		
 		if(v == false) {
 			System.out.println("“Ninguna capital del mapa comienza por: " + letra);
 		}
@@ -115,10 +115,8 @@ public class Geografia {
 				v = true;
 			}	
 		}
-		
-		if (v = false) {
-			System.out.println("no hay ningún país y capital que comiencen por la misma letra");
-		
+		if (v == false) {
+			System.out.println("No hay ningún país y capital que comiencen por la misma letra");
 		}
 	}
 

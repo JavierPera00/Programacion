@@ -16,6 +16,7 @@ public class App {
 		System.out.println(paises.getPaises());
 		
 		//2
+		System.out.println("2");
 		System.out.println(paises.calcularLongitudMediaPaises());
 		
 		//3
