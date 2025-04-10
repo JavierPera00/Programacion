@@ -48,5 +48,7 @@ public class Temario {
  	syso("Clave:" + par.getKey());
  	syso("Valor:" + par.getValue());
  	}
+ 	executeQuery solo para queris
+ 	executeUpdate updates, insert and deletes
  * */
 }
