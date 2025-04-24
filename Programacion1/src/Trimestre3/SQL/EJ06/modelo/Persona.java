@@ -1,9 +1,7 @@
-package Trimestre3.SQL.Inicial.modelo;
+package Trimestre3.SQL.EJ06.modelo;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-import Trimestre3.SQL.EJ03.modelo.DatosIncompletosException;
 
 public class Persona {
 
@@ -36,6 +34,7 @@ public class Persona {
     public void setFechaNac(LocalDate fechaNac) {
         this.fechaNac = fechaNac;
     }
+    
     public Boolean validar() throws DatosIncompletosException{
     	if(nombre.equals(null) || nombre.isEmpty()|| apellidos.equals(null) || apellidos.isEmpty()
     			|| dni.equals(null) || dni.isEmpty() || fechaNac.equals(null)) {
@@ -43,6 +42,7 @@ public class Persona {
     	}
     	return true;
     }
+    
     @Override
     public String toString() {
         return "Persona [DNI = " + dni + ", NOMBRE = " + nombre + ", APELLIDOS = " + apellidos + ", FECHA NACIMIENTO = "+ fechaNac + "]";
