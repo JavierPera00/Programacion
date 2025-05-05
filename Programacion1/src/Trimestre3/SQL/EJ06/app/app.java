@@ -7,8 +7,8 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-import Trimestre3.SQL.EJ05.modelo.Persona;
-import Trimestre3.SQL.EJ05.service.PersonasServive;
+import Trimestre3.SQL.EJ06.modelo.Persona;
+import Trimestre3.SQL.EJ06.service.PersonasServive;
 
 public class app {
 

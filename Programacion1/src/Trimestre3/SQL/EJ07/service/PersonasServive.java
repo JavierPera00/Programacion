@@ -1,4 +1,4 @@
-package Trimestre3.SQL.EJ06.service;
+package Trimestre3.SQL.EJ07.service;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,65 +9,63 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Trimestre3.SQL.EJ06.modelo.Persona;
+import Trimestre3.SQL.EJ07.modelo.Persona;
 
 public class PersonasServive {
 
 	private OpenConnection openConn;
-	
+
 	public PersonasServive() {
 		openConn = new OpenConnection();
 	}
-	
-	public Persona consultarPersona(String dni1){
+
+	public Persona consultarPersona(String dni1) {
 		String sql = "SELECT * FROM PERSONAS";
-		try(Connection conn = openConn.getNewConnection();
-			 Statement stm = conn.createStatement()){
-			
+		try (Connection conn = openConn.getNewConnection(); Statement stm = conn.createStatement()) {
+
 			ResultSet rs = stm.executeQuery(sql);
-			while(rs.next()){
+			while (rs.next()) {
 				String dni = rs.getString("DNI");
-				String nombre  = rs.getString("NOMBRE");
+				String nombre = rs.getString("NOMBRE");
 				String apellidos = rs.getString("APELLIDOS");
-				if(dni.equalsIgnoreCase(dni1)) {
-					Persona p1 = new Persona ();
+				if (dni.equalsIgnoreCase(dni1)) {
+					Persona p1 = new Persona();
 					p1.setDni(dni1);
 					p1.setNombre(nombre);
 					p1.setApellidos(apellidos);
 					p1.setFechaNac(rs.getDate("FECHA_NACIMIENTO").toLocalDate());
 					return p1;
-					}
+				}
 			}
-		}catch (SQLException e ){
+		} catch (SQLException e) {
 			System.out.println("Error accediendo a la Base de Datos");
+		} finally {
+			System.out.println("");
 		}
-		finally {
-            System.out.println("");
-        }
 		return null;
 	}
+
 	public List<Persona> buscarPersona(String cadena) {
-		List<Persona> lista = new ArrayList<>();										  
+		List<Persona> lista = new ArrayList<>();
 		String sql = "SELECT * FROM PERSONAS WHERE NOMBRE LIKE '%" + cadena + "%' or APELLIDOS LIKE '%" + cadena + "%'";
 		System.out.println(sql);
-		try (Connection conn = openConn.getNewConnection(); 
-				Statement stm = conn.createStatement()) {
+		try (Connection conn = openConn.getNewConnection(); Statement stm = conn.createStatement()) {
 			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
-			Persona p1 = new Persona();
-			p1.setNombre(rs.getString("NOMBRE"));	
-			p1.setApellidos(rs.getString("APELLIDOS"));
-			p1.setDni(rs.getString("DNI"));
-			p1.setFechaNac(rs.getDate("FECHA_NACIMIENTO").toLocalDate());
-			lista.add(p1);
+				Persona p1 = new Persona();
+				p1.setNombre(rs.getString("NOMBRE"));
+				p1.setApellidos(rs.getString("APELLIDOS"));
+				p1.setDni(rs.getString("DNI"));
+				p1.setFechaNac(rs.getDate("FECHA_NACIMIENTO").toLocalDate());
+				lista.add(p1);
 			}
 		} catch (SQLException e) {
 			System.out.println("Fallo al ingresar la cadena");
-		} 
+		}
 		return lista;
 	}
-	
-	public void insertarPersona(Persona p) throws SQLException {		
+
+	public void insertarPersona(Persona p) throws SQLException {
 		String sql = "INSERT INTO PERSONAS VALUES (?, ?, ?, ?)";
 		try (Connection conn = openConn.getNewConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, p.getDni());
@@ -78,8 +76,8 @@ public class PersonasServive {
 			stmt.execute();
 		}
 	}
-	
-	public void ActualizarPersona(Persona p) throws SQLException {		
+
+	public void ActualizarPersona(Persona p) throws SQLException {
 		String sql = "UPDATE PERSONAS SET NOMBRE = ?, APELLIDOS = ?, FECHA_NACIMIENTO = ? WHERE DNI = ?";
 		try (Connection conn = openConn.getNewConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, p.getNombre());
@@ -90,15 +88,36 @@ public class PersonasServive {
 			stmt.executeUpdate();
 		}
 	}
-	
-	public void borrarPersona(String dni) throws SQLException {		
+
+	public void borrarPersona(String dni) throws SQLException {
 		String sql = "DELETE FROM PERSONAS WHERE DNI = ?";
 		try (Connection conn = openConn.getNewConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, dni);	
+			stmt.setString(1, dni);
 			System.out.println(sql);
 			stmt.executeUpdate();
 		}
 	}
+
+	public void insertarPersonas(List<Persona> lista) {
+		String sql = "INSERT INTO PERSONAS VALUES (?, ?, ?, ?)";
+		try (Connection conn = openConn.getNewConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			conn.setAutoCommit(false);
+			try {
+				for (int i = 0; i < lista.size(); i++) {
+					stmt.setString(1, lista.get(i).getDni());
+					stmt.setString(2, lista.get(i).getNombre());
+					stmt.setString(3, lista.get(i).getApellidos());
+					stmt.setDate(4, Date.valueOf(lista.get(i).getFechaNac()));
+					stmt.execute();
+				}
+				conn.commit();
+			} catch (SQLException a) {
+				conn.rollback();
+				// throw a;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 }
-
-
