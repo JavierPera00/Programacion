@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,14 +78,6 @@ public class PersonasServive {
 		}
 	}
 
-	public void borrarPersona(String dni) throws SQLException {
-		String sql = "DELETE FROM PERSONAS WHERE DNI = ?";
-		try (Connection conn = openConn.getNewConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, dni);
-			stmt.executeUpdate();
-		}
-	}
-
 	public void insertarPersona(Persona p) throws SQLException {
 		String sql = "INSERT INTO PERSONAS VALUES (?, ?, ?, ?)";
 		try (Connection conn = openConn.getNewConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -115,22 +108,36 @@ public class PersonasServive {
 		}
 	}
 
-	public void borrarPersonasA(String dni) throws SQLException {
+	public void borrarPersona(String dni, Connection conn) throws SQLException {
 		String sql = "DELETE FROM PERSONAS WHERE DNI = ?";
-		try (Connection conn = openConn.getNewConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-			Persona p = consultarPersona(dni);
-
+		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, dni);
 			stmt.executeUpdate();
 		}
-
 	}
 
-	public void recorrer() throws SQLException {
-		String sql = "SELECT * FROM PERSONAS";
-		try (Connection conn = openConn.getNewConnection();
-					PreparedStatement stmt = conn.prepareStatement(sql)) {
-
+	public Integer borrarPersonasA() throws SQLException {
+		Integer cont = 0;
+		try (Connection conn = openConn.getNewConnection();) {
+			conn.setAutoCommit(false); // La mas importante para la conexion se guarde, y no cambie.
+			// 1
+			List<Persona> p = buscarPersona("");
+			// 2
+			LocalDate l = LocalDate.now();
+			for (Persona persona : p) {
+				Integer año = (l.getYear() - (persona.getFechaNac().getYear()));
+				if (año > 17) {
+					borrarPersona(persona.getDni(), conn);
+					cont++;
+					conn.commit();
+				} else {
+					conn.rollback();
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
+		return cont;
 	}
 
 	private void insentarComun(Persona p, Connection conn) throws SQLException {
