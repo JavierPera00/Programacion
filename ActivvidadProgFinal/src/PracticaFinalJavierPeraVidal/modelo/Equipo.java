@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Equipo {
 
-	private Integer codigo;
+	private String codigo;
 	private String nombre;
 	private List<Jugador> listaJugador;
 	
@@ -18,10 +18,10 @@ public class Equipo {
 		super();
 		this.listaJugador = new ArrayList<>();
 	}
-	public Integer getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 	public String getNombre() {

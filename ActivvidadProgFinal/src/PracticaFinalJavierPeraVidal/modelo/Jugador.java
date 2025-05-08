@@ -5,19 +5,26 @@ import java.time.LocalDate;
 public class Jugador {
 
 	private Integer numero;
-	private Integer codigoEquipo;
+	private String codigoEquipo;
 	private LocalDate fechaNacimiento;
+	private String nombre;
 	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public Integer getNumero() {
 		return numero;
 	}
 	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
-	public Integer getCodigoEquipo() {
+	public String getCodigoEquipo() {
 		return codigoEquipo;
 	}
-	public void setCodigoEquipo(Integer codigoEquipo) {
+	public void setCodigoEquipo(String codigoEquipo) {
 		this.codigoEquipo = codigoEquipo;
 	}
 	public LocalDate getFechaNacimiento() {
@@ -26,10 +33,11 @@ public class Jugador {
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	
 	@Override
 	public String toString() {
 		return "Jugador [numero=" + numero + ", codigoEquipo=" + codigoEquipo + ", fechaNacimiento=" + fechaNacimiento
-				+ "]";
+				+ ", nombre=" + nombre + "]";
 	}
+	
+	
 }
