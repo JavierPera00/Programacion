@@ -5,11 +5,6 @@ public class EquipoServiceException extends Exception {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3303711053570907514L;
-
-	/**
-	 * 
-	 */
 
 
 	public EquipoServiceException() {
