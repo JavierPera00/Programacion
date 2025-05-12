@@ -181,12 +181,12 @@ public class EquiposService {
 				} catch (NotFoundException e) {
 					System.out.println("ERROR | [Fallo no se encuentra al equipo]");
 				}
-			} catch (SQLException r) {
+			} catch (SQLException a) {
 				throw new EquipoServiceException();
 			}
 		} catch (EquipoServiceException a) {
 			System.out.println("ERROR | [Fallo en el servicio]");
-			
+			;
 		}
 	}
 }
