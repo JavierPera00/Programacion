@@ -22,15 +22,17 @@ public class App {
 		ProductoService ps = new ProductoService();
 		// 1
 		try {
-			while (lista.size() > 3) {
+			while (lista.size() < 3) {
 				Producto p1 = new Producto();
 				System.out.println("Datos Productos");
 				System.out.print("Escribe el ID del Producto: ");
 				Integer id = scanner.nextInt();
 				System.out.println("Escribe el Nombre del Producto: ");
 				String nombre = scanner.nextLine();
+				scanner.next();
 				System.out.println("Escrib el Tipo del Producto: ");
 				String tipo = scanner.nextLine();
+				scanner.next();
 				System.out.println("Escribe un Precio del Producto: ");
 				BigDecimal precio = scanner.nextBigDecimal();
 				System.out.println("Escribe si es disponible");
