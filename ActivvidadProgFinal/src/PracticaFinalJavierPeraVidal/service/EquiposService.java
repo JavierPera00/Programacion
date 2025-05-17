@@ -30,14 +30,13 @@ public class EquiposService {
 				equip.setNombre(rs.getString("NOMBRE"));
 				listaEquipo.add(equip);
 			}
-
 		} catch (SQLException e) {
 			System.err.println("ERROR | [Fallo al ingresar al equipo]");
 		}
 		return listaEquipo;
 	}
 
-	public List<Jugador> consultarJugadoresEquipo(String codigo) {
+	public List<Jugador> consultarJugadoresEquipo(String codigo) throws SQLException {
 		List<Jugador> listaJugador = new ArrayList<>();
 		String sql = "SELECT CODIGO_EQUIPO, NUMERO, NACIMIENTO FROM JUGADOR WHERE CODIGO_EQUIPO = ?";
 		try (Connection conn = openConn.getNewConnection(); Statement stm = conn.createStatement()) {
@@ -50,7 +49,7 @@ public class EquiposService {
 				listaJugador.add(j);
 			}
 		} catch (SQLException e) {
-			System.out.println("ERROR | [Fallo al ingresar al Jugador]");
+			System.out.println("ERROR | Fallo al ingresar a la BBDD");
 		}
 		return listaJugador;
 
@@ -59,26 +58,18 @@ public class EquiposService {
 	public Equipo consultarEquipoCompleto(String codigo)
 			throws NotFoundException, EquipoServiceException, SQLException {
 		String sql = "SELECT CODIGO, NOMBRE FROM EQUIPO WHERE CODIGO = ?";
-		try {
-			try (Connection conn = openConn.getNewConnection(); Statement stm = conn.createStatement()) {
-				ResultSet rs = stm.executeQuery(sql);
-				while (rs.next()) {
-					if (!rs.next()) {
-						throw new NotFoundException("ERROR");
-					}
-					Equipo equipo = new Equipo();
-					equipo.setListaJugador(consultarJugadoresEquipo(codigo));
-					return equipo;
+		try (Connection conn = openConn.getNewConnection(); Statement stm = conn.createStatement()) {
+			ResultSet rs = stm.executeQuery(sql);
+			while (rs.next()) {
+				if (!rs.next()) {
+					throw new NotFoundException("ERROR");
 				}
-			} catch (SQLException r) {
-				throw new EquipoServiceException("ERROR");
-
-			} catch (NotFoundException e) {
-				System.out.println("ERROR | [Fallo no se encuentra al equipo]");
+				Equipo equipo = new Equipo();
+				equipo.setListaJugador(consultarJugadoresEquipo(codigo));
+				return equipo;
 			}
-		} catch (EquipoServiceException a) {
-			System.out.println("ERROR | [Fallo en el servicio]");
-
+		} catch (SQLException r) {
+			throw new EquipoServiceException("ERROR");
 		}
 		return null;
 	}
@@ -102,91 +93,72 @@ public class EquiposService {
 		try (Connection conn = openConn.getNewConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			conn.setAutoCommit(false);
 			Integer cont = 0;
-			try {
-				stmt.setString(1, equipo.getCodigo());
-				stmt.setString(2, equipo.getNombre());
-				stmt.executeUpdate();
-				for (Jugador jugador : equipo.getListaJugador()) {
-					jugador.setNumero(cont++);
-					jugador.setCodigoEquipo(equipo.getCodigo());
-					insertarJugador(jugador, conn);
-				}
-				conn.commit();
-			} catch (SQLException a) {
-				throw new EquipoServiceException();
-			}
-		} catch (EquipoServiceException a) {
-			System.out.println("ERROR | [Fallo en el servicio");
 
+			stmt.setString(1, equipo.getCodigo());
+			stmt.setString(2, equipo.getNombre());
+			stmt.executeUpdate();
+			for (Jugador jugador : equipo.getListaJugador()) {
+				jugador.setNumero(cont++);
+				jugador.setCodigoEquipo(equipo.getCodigo());
+				insertarJugador(jugador, conn);
+			}
+			conn.commit();
+		} catch (SQLException a) {
+			throw new EquipoServiceException();
 		}
 	}
 
 	public void borrarEquipoCompleto(String codigo) throws EquipoServiceException, NotFoundException {
 		String sqlDeleteJugadores = "DELETE FROM JUGADOR WHERE CODIGO_EQUIPO = ?";
 		String sqlDeleteEquipo = "DELETE FROM EQUIPO WHERE CODIGO = ?";
-		try {
-			try (Connection con = openConn.getNewConnection()) {
-				con.setAutoCommit(false);
-				Equipo equipo = consultarEquipoCompleto(codigo);
-				if (equipo == null) {
-					con.rollback();
-					throw new EquipoServiceException("No existe equipo con código: " + codigo);
-				}
-				try (PreparedStatement stmt = con.prepareStatement(sqlDeleteJugadores)) {
-					stmt.setString(1, codigo);
-					stmt.executeUpdate();
-				}
-				try (PreparedStatement stmtEq = con.prepareStatement(sqlDeleteEquipo)) {
-					stmtEq.setString(2, codigo);
-					stmtEq.executeUpdate();
-				}
-				con.commit();
-			} catch (SQLException e) {
-				throw new EquipoServiceException("Error al borrar el equipo: " + e.getMessage());
+
+		try (Connection con = openConn.getNewConnection()) {
+			con.setAutoCommit(false);
+			Equipo equipo = consultarEquipoCompleto(codigo);
+			if (equipo == null) {
+				con.rollback();
+				throw new NotFoundException("No existe equipo con código: " + codigo);
 			}
-		} catch (EquipoServiceException a) {
-			System.out.println("ERROR | [Fallo en el servicio]");
+			try (PreparedStatement stmt = con.prepareStatement(sqlDeleteJugadores)) {
+				stmt.setString(1, codigo);
+				stmt.executeUpdate();
+			}
+			try (PreparedStatement stmtEq = con.prepareStatement(sqlDeleteEquipo)) {
+				stmtEq.setString(2, codigo);
+				stmtEq.executeUpdate();
+			}
+			con.commit();
+		} catch (SQLException e) {
+			throw new EquipoServiceException("Error al borrar el equipo: " + e.getMessage());
 		}
 	}
 
 	public void añadirJugadorAEquipo(Equipo eq, Jugador ju) throws SQLException, EquipoServiceException {
-		try {
-			try (Connection conn = openConn.getNewConnection();) {
-				List<Jugador> listaJugador = consultarJugadoresEquipo(eq.getCodigo());
-				ju.setNumero(listaJugador.size() + 1);
-				ju.setCodigoEquipo(eq.getCodigo());
-				insertarJugador(ju, conn);
+		try (Connection conn = openConn.getNewConnection();) {
+			List<Jugador> listaJugador = consultarJugadoresEquipo(eq.getCodigo());
+			ju.setNumero(listaJugador.size() + 1);
+			ju.setCodigoEquipo(eq.getCodigo());
+			insertarJugador(ju, conn);
 
-			} catch (SQLException r) {
-				throw new EquipoServiceException("ERROR");
-			}
-		} catch (EquipoServiceException e) {
-			System.out.println("ERROR | [Fallo en el servicio]");
+		} catch (SQLException r) {
+			throw new EquipoServiceException("ERROR");
 		}
 	}
 
 	public void exportarJugadores(String codigoEquipo, String rutaFichero)
-			throws EquipoServiceException, NotFoundException, SQLException {
+			throws EquipoServiceException, NotFoundException {
 		try {
-			try {
-				try {
-					List<Jugador> listaJugador = consultarJugadoresEquipo(codigoEquipo);
-					if (listaJugador.isEmpty()) {
-						throw new NotFoundException();
-					}
-					List<Jugador> equiposJugador = consultarJugadoresEquipo(rutaFichero);
-					for (Jugador jugador : equiposJugador) {
-						System.out.println(jugador);
-					}
-				} catch (NotFoundException e) {
-					System.out.println("ERROR | [Fallo no se encuentra al equipo]");
-				}
-			} catch (SQLException a) {
-				throw new EquipoServiceException();
+			List<Jugador> listaJugador = consultarJugadoresEquipo(codigoEquipo);
+			if (listaJugador.isEmpty()) {
+				throw new NotFoundException();
 			}
-		} catch (EquipoServiceException a) {
-			System.out.println("ERROR | [Fallo en el servicio]");
-			;
+			List<Jugador> equiposJugador = consultarJugadoresEquipo(rutaFichero);
+			for (Jugador jugador : equiposJugador) {
+				System.out.println(jugador);
+			}
+		} catch (SQLException e) {
+			throw new EquipoServiceException();
 		}
+
 	}
 }
