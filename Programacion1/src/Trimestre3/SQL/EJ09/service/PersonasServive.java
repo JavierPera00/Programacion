@@ -48,7 +48,8 @@ public class PersonasServive {
 
 	public List<Persona> buscarPersona(String cadena) {
 		List<Persona> lista = new ArrayList<>();
-		String sql = "SELECT * FROM PERSONAS WHERE NOMBRE LIKE '%" + cadena + "%' or APELLIDOS LIKE '%" + cadena + "%'";
+		String sql = "SELECT * FROM PERSONAS WHERE NOMBRE LIKE '%" +
+				cadena + "%' or APELLIDOS LIKE '%" + cadena + "%'";
 		System.out.println(sql);
 		try (Connection conn = openConn.getNewConnection(); Statement stm = conn.createStatement()) {
 			ResultSet rs = stm.executeQuery(sql);
